@@ -218,6 +218,11 @@ public class VirtualControllerConfigurationLoader {
     private static final int START_BACK_WIDTH = 12;
     private static final int START_BACK_HEIGHT = 7;
 
+    //Make the Guide Menu be in the center of START and BACK menu
+    private static final int GUIDE_X = START_X-BACK_X;
+    private static final int GUIDE_Y = START_BACK_Y;
+
+
     public static void createDefaultLayout(final VirtualController controller, final Context context, NvConnection conn, Game gameContext) {
         DisplayMetrics screen = context.getResources().getDisplayMetrics();
         PreferenceConfiguration config = PreferenceConfiguration.readPreferences(context);
@@ -383,6 +388,20 @@ public class VirtualControllerConfigurationLoader {
                     screenScale(TOUCH_TYPE_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),
                     screenScale(TRIGGER_HEIGHT, height)
+            );
+        }
+
+        if(config.showGuideButton){
+            controller.addElement(createDigitalButton(VirtualControllerElement.EID_GDB,
+                            ControllerPacket.SPECIAL_BUTTON_FLAG, 0, 1, "GUIDE", -1, controller, context,
+                    true,
+                    () -> {},
+                    () -> {},
+                    () -> {}),
+                    screenScale(GUIDE_X, height)+ rightDisplacement,
+                    screenScale(GUIDE_Y, height),
+                    screenScale(START_BACK_WIDTH, height),
+                    screenScale(START_BACK_HEIGHT, height)
             );
         }
 
