@@ -36,7 +36,8 @@ public class VirtualController {
     public enum ControllerMode {
         Active,
         MoveButtons,
-        ResizeButtons
+        ResizeButtons,
+        DisableEnableButtons,
     }
 
     private static final boolean _PRINT_DEBUG_INFORMATION = false;
@@ -80,8 +81,13 @@ public class VirtualController {
             public void onClick(View v) {
                 String message;
 
-                if (currentMode == ControllerMode.Active){
+                if (currentMode == ControllerMode.Active) {
+                    currentMode = ControllerMode.DisableEnableButtons;
+                    showElements();
+                    message = "Entering configuration mode (Disable/Enable buttons)";
+                } else if (currentMode == ControllerMode.DisableEnableButtons){
                     currentMode = ControllerMode.MoveButtons;
+                    showEnabledElements();
                     message = "Entering configuration mode (Move buttons)";
                 } else if (currentMode == ControllerMode.MoveButtons) {
                     currentMode = ControllerMode.ResizeButtons;
@@ -117,11 +123,21 @@ public class VirtualController {
     }
 
     public void show() {
-        for (VirtualControllerElement element : elements) {
-            element.setVisibility(View.VISIBLE);
-        }
+        showEnabledElements();
 
         buttonConfigure.setVisibility(View.VISIBLE);
+    }
+
+    public void showElements(){
+        for(VirtualControllerElement element : elements){
+            element.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void showEnabledElements(){
+        for(VirtualControllerElement element: elements){
+            element.setVisibility( element.enabled ? View.VISIBLE : View.INVISIBLE );
+        }
     }
 
     public void removeElements() {
