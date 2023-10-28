@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.DisplayMetrics;
 
+import com.limelight.Game;
 import com.limelight.nvstream.NvConnection;
 import com.limelight.nvstream.input.ControllerPacket;
 import com.limelight.nvstream.input.MouseButtonPacket;
@@ -83,19 +84,18 @@ public class VirtualControllerConfigurationLoader {
             final int icon,
             final VirtualController controller,
             final Context context,
-            final boolean mouseButton,
-            Runnable mouseOnClick,
-            Runnable mouseOnLongPress,
-            Runnable mouseOnRelease) {
+            final boolean customCommands,
+            Runnable onClick,
+            Runnable onLongPress,
+            Runnable onRelease) {
         DigitalButton button = new DigitalButton(controller, elementId, layer, context);
         button.setText(text);
         button.setIcon(icon);
 
         button.addDigitalButtonListener(new DigitalButton.DigitalButtonListener() {
-            boolean longClick = false;
             @Override
             public void onClick() {
-                if(!mouseButton){
+                if(!customCommands){
                     VirtualController.ControllerInputContext inputContext =
                             controller.getControllerInputContext();
                     inputContext.inputMap |= keyShort;
@@ -104,7 +104,7 @@ public class VirtualControllerConfigurationLoader {
                 }else{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         try{
-                             mouseOnClick.run();
+                             onClick.run();
                         }catch(Exception ex){
                             throw ex;
                         }
@@ -114,7 +114,7 @@ public class VirtualControllerConfigurationLoader {
 
             @Override
             public void onLongClick() {
-                if(!mouseButton) {
+                if(!customCommands) {
                     VirtualController.ControllerInputContext inputContext =
                             controller.getControllerInputContext();
                     inputContext.inputMap |= keyLong;
@@ -122,15 +122,14 @@ public class VirtualControllerConfigurationLoader {
                     controller.sendControllerInputContext();
                 }else{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        longClick = true;
-                        mouseOnLongPress.run();
+                        onLongPress.run();
                     }
                 }
             }
 
             @Override
             public void onRelease() {
-                if(!mouseButton) {
+                if(!customCommands) {
                     VirtualController.ControllerInputContext inputContext =
                             controller.getControllerInputContext();
                     inputContext.inputMap &= ~keyShort;
@@ -139,10 +138,7 @@ public class VirtualControllerConfigurationLoader {
                     controller.sendControllerInputContext();
                 }else{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        if(!longClick){
-                            mouseOnRelease.run();
-                        }
-                        longClick = false;
+                            onRelease.run();
                     }
                 }
             }
@@ -214,6 +210,7 @@ public class VirtualControllerConfigurationLoader {
     private static final int L3_R3_BASE_Y = 60;
     private static final int SCROLL_BASE_Y = 3;
     private static final int RIGHT_CLICK_BASE_Y = 14;
+    private static final int TOUCH_TYPE_BASE_Y = 25;
 
     private static final int START_X = 83;
     private static final int BACK_X = 34;
@@ -221,7 +218,7 @@ public class VirtualControllerConfigurationLoader {
     private static final int START_BACK_WIDTH = 12;
     private static final int START_BACK_HEIGHT = 7;
 
-    public static void createDefaultLayout(final VirtualController controller, final Context context, NvConnection conn) {
+    public static void createDefaultLayout(final VirtualController controller, final Context context, NvConnection conn, Game gameContext) {
         DisplayMetrics screen = context.getResources().getDisplayMetrics();
         PreferenceConfiguration config = PreferenceConfiguration.readPreferences(context);
 
@@ -371,6 +368,19 @@ public class VirtualControllerConfigurationLoader {
                             () -> conn.sendMouseButtonUp(MouseButtonPacket.BUTTON_RIGHT)),
                     screenScale(TRIGGER_SCROLL_RIGHT_CLICK_BASE_X + TRIGGER_DISTANCE, height) + rightDisplacement,
                     screenScale(RIGHT_CLICK_BASE_Y, height),
+                    screenScale(TRIGGER_WIDTH, height),
+                    screenScale(TRIGGER_HEIGHT, height)
+            );
+
+            controller.addElement(createDigitalButton(
+                            VirtualControllerElement.EID_CONTEXT,
+                            ControllerPacket.LS_CLK_FLAG, 0, 1, "Touch Type", -1, controller, context,
+                            true,
+                            () -> gameContext.changeTouchContext(),
+                            () -> {},
+                            () -> {}),
+                    screenScale(TRIGGER_SCROLL_RIGHT_CLICK_BASE_X + TRIGGER_DISTANCE, height) + rightDisplacement,
+                    screenScale(TOUCH_TYPE_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),
                     screenScale(TRIGGER_HEIGHT, height)
             );

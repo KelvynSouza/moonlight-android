@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.limelight.Game;
 import com.limelight.LimeLog;
 import com.limelight.R;
 import com.limelight.binding.input.ControllerHandler;
@@ -44,6 +45,7 @@ public class VirtualController {
     private final Context context;
     private final Handler handler;
     private final NvConnection conn;
+    private final Game game;
 
     private final Runnable delayedRetransmitRunnable = new Runnable() {
         @Override
@@ -61,12 +63,13 @@ public class VirtualController {
 
     private List<VirtualControllerElement> elements = new ArrayList<>();
 
-    public VirtualController(final ControllerHandler controllerHandler, FrameLayout layout, final Context context, NvConnection conn) {
+    public VirtualController(final ControllerHandler controllerHandler, FrameLayout layout, final Context context, NvConnection conn, Game game) {
         this.controllerHandler = controllerHandler;
         this.frame_layout = layout;
         this.context = context;
         this.conn = conn;
         this.handler = new Handler(Looper.getMainLooper());
+        this.game = game;
 
         buttonConfigure = new Button(context);
         buttonConfigure.setAlpha(0.25f);
@@ -167,7 +170,7 @@ public class VirtualController {
         frame_layout.addView(buttonConfigure, params);
 
         // Start with the default layout
-        VirtualControllerConfigurationLoader.createDefaultLayout(this, context, conn);
+        VirtualControllerConfigurationLoader.createDefaultLayout(this, context, conn, game);
 
         // Apply user preferences onto the default layout
         VirtualControllerConfigurationLoader.loadFromPreferences(this, context);

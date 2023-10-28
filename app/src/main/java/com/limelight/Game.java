@@ -123,6 +123,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
     private boolean autoEnterPip = false;
     private boolean surfaceCreated = false;
     private boolean attemptedConnection = false;
+    private boolean trackpad = false;
     private int suppressPipRefCount = 0;
     private String pcName;
     private String appName;
@@ -517,6 +518,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
                 touchContextMap[i] = new RelativeTouchContext(conn, i,
                         REFERENCE_HORIZ_RES, REFERENCE_VERT_RES,
                         streamView, prefConfig);
+                trackpad = true;
             }
         }
 
@@ -530,7 +532,7 @@ public class Game extends Activity implements SurfaceHolder.Callback,
             // create virtual onscreen controller
             virtualController = new VirtualController(controllerHandler,
                     (FrameLayout)streamView.getParent(),
-                    this, conn);
+                    this, conn, this);
             virtualController.refreshLayout();
             virtualController.show();
         }
@@ -1512,6 +1514,23 @@ public class Game extends Activity implements SurfaceHolder.Callback,
         else {
             return null;
         }
+    }
+
+    public void changeTouchContext()
+    {
+        for (int i = 0; i < touchContextMap.length; i++) {
+            if (trackpad) {
+                touchContextMap[i] = new AbsoluteTouchContext(conn, i, streamView);
+                prefConfig.touchscreenTrackpad = false;
+            }
+            else {
+                touchContextMap[i] = new RelativeTouchContext(conn, i,
+                        REFERENCE_HORIZ_RES, REFERENCE_VERT_RES,
+                        streamView, prefConfig);
+                prefConfig.touchscreenTrackpad = true;
+            }
+        }
+        trackpad = !trackpad;
     }
 
     @Override
