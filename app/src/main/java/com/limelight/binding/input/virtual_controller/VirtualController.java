@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.limelight.LimeLog;
 import com.limelight.R;
 import com.limelight.binding.input.ControllerHandler;
+import com.limelight.nvstream.NvConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class VirtualController {
     private final ControllerHandler controllerHandler;
     private final Context context;
     private final Handler handler;
+    private final NvConnection conn;
 
     private final Runnable delayedRetransmitRunnable = new Runnable() {
         @Override
@@ -59,10 +61,11 @@ public class VirtualController {
 
     private List<VirtualControllerElement> elements = new ArrayList<>();
 
-    public VirtualController(final ControllerHandler controllerHandler, FrameLayout layout, final Context context) {
+    public VirtualController(final ControllerHandler controllerHandler, FrameLayout layout, final Context context, NvConnection conn) {
         this.controllerHandler = controllerHandler;
         this.frame_layout = layout;
         this.context = context;
+        this.conn = conn;
         this.handler = new Handler(Looper.getMainLooper());
 
         buttonConfigure = new Button(context);
@@ -164,7 +167,7 @@ public class VirtualController {
         frame_layout.addView(buttonConfigure, params);
 
         // Start with the default layout
-        VirtualControllerConfigurationLoader.createDefaultLayout(this, context);
+        VirtualControllerConfigurationLoader.createDefaultLayout(this, context, conn);
 
         // Apply user preferences onto the default layout
         VirtualControllerConfigurationLoader.loadFromPreferences(this, context);

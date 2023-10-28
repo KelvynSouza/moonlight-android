@@ -7,9 +7,12 @@ package com.limelight.binding.input.virtual_controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.DisplayMetrics;
 
+import com.limelight.nvstream.NvConnection;
 import com.limelight.nvstream.input.ControllerPacket;
+import com.limelight.nvstream.input.MouseButtonPacket;
 import com.limelight.preferences.PreferenceConfiguration;
 
 import org.json.JSONException;
@@ -17,7 +20,6 @@ import org.json.JSONObject;
 
 public class VirtualControllerConfigurationLoader {
     public static final String OSC_PREFERENCE = "OSC";
-
     private static int getPercent(
             int percent,
             int total) {
@@ -80,38 +82,69 @@ public class VirtualControllerConfigurationLoader {
             final String text,
             final int icon,
             final VirtualController controller,
-            final Context context) {
+            final Context context,
+            final boolean mouseButton,
+            Runnable mouseOnClick,
+            Runnable mouseOnLongPress,
+            Runnable mouseOnRelease) {
         DigitalButton button = new DigitalButton(controller, elementId, layer, context);
         button.setText(text);
         button.setIcon(icon);
 
         button.addDigitalButtonListener(new DigitalButton.DigitalButtonListener() {
+            boolean longClick = false;
             @Override
             public void onClick() {
-                VirtualController.ControllerInputContext inputContext =
-                        controller.getControllerInputContext();
-                inputContext.inputMap |= keyShort;
+                if(!mouseButton){
+                    VirtualController.ControllerInputContext inputContext =
+                            controller.getControllerInputContext();
+                    inputContext.inputMap |= keyShort;
 
-                controller.sendControllerInputContext();
+                    controller.sendControllerInputContext();
+                }else{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        try{
+                             mouseOnClick.run();
+                        }catch(Exception ex){
+                            throw ex;
+                        }
+                    }
+                }
             }
 
             @Override
             public void onLongClick() {
-                VirtualController.ControllerInputContext inputContext =
-                        controller.getControllerInputContext();
-                inputContext.inputMap |= keyLong;
+                if(!mouseButton) {
+                    VirtualController.ControllerInputContext inputContext =
+                            controller.getControllerInputContext();
+                    inputContext.inputMap |= keyLong;
 
-                controller.sendControllerInputContext();
+                    controller.sendControllerInputContext();
+                }else{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        longClick = true;
+                        mouseOnLongPress.run();
+                    }
+                }
             }
 
             @Override
             public void onRelease() {
-                VirtualController.ControllerInputContext inputContext =
-                        controller.getControllerInputContext();
-                inputContext.inputMap &= ~keyShort;
-                inputContext.inputMap &= ~keyLong;
+                if(!mouseButton) {
+                    VirtualController.ControllerInputContext inputContext =
+                            controller.getControllerInputContext();
+                    inputContext.inputMap &= ~keyShort;
+                    inputContext.inputMap &= ~keyLong;
 
-                controller.sendControllerInputContext();
+                    controller.sendControllerInputContext();
+                }else{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        if(!longClick){
+                            mouseOnRelease.run();
+                        }
+                        longClick = false;
+                    }
+                }
             }
         });
 
@@ -157,6 +190,7 @@ public class VirtualControllerConfigurationLoader {
 
     private static final int TRIGGER_L_BASE_X = 1;
     private static final int TRIGGER_R_BASE_X = 92;
+    private static final int TRIGGER_SCROLL_RIGHT_CLICK_BASE_X = 92;
     private static final int TRIGGER_DISTANCE = 23;
     private static final int TRIGGER_BASE_Y = 31;
     private static final int TRIGGER_WIDTH = 12;
@@ -178,6 +212,8 @@ public class VirtualControllerConfigurationLoader {
     private static final int ANALOG_SIZE = 26;
 
     private static final int L3_R3_BASE_Y = 60;
+    private static final int SCROLL_BASE_Y = 3;
+    private static final int RIGHT_CLICK_BASE_Y = 14;
 
     private static final int START_X = 83;
     private static final int BACK_X = 34;
@@ -185,8 +221,7 @@ public class VirtualControllerConfigurationLoader {
     private static final int START_BACK_WIDTH = 12;
     private static final int START_BACK_HEIGHT = 7;
 
-    public static void createDefaultLayout(final VirtualController controller, final Context context) {
-
+    public static void createDefaultLayout(final VirtualController controller, final Context context, NvConnection conn) {
         DisplayMetrics screen = context.getResources().getDisplayMetrics();
         PreferenceConfiguration config = PreferenceConfiguration.readPreferences(context);
 
@@ -198,7 +233,7 @@ public class VirtualControllerConfigurationLoader {
         // NOTE: Some of these getPercent() expressions seem like they can be combined
         // into a single call. Due to floating point rounding, this isn't actually possible.
 
-        if (!config.onlyL3R3)
+        if (!config.onlyMouseButtons)
         {
             controller.addElement(createDigitalPad(controller, context),
                     screenScale(DPAD_BASE_X, height),
@@ -210,7 +245,7 @@ public class VirtualControllerConfigurationLoader {
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_A,
                     !config.flipFaceButtons ? ControllerPacket.A_FLAG : ControllerPacket.B_FLAG, 0, 1,
-                    !config.flipFaceButtons ? "A" : "B", -1, controller, context),
+                    !config.flipFaceButtons ? "A" : "B", -1, controller, context, false, null, null, null),
                     screenScale(BUTTON_BASE_X, height) + rightDisplacement,
                     screenScale(BUTTON_BASE_Y + 2 * BUTTON_SIZE, height),
                     screenScale(BUTTON_SIZE, height),
@@ -220,7 +255,7 @@ public class VirtualControllerConfigurationLoader {
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_B,
                     config.flipFaceButtons ? ControllerPacket.A_FLAG : ControllerPacket.B_FLAG, 0, 1,
-                    config.flipFaceButtons ? "A" : "B", -1, controller, context),
+                    config.flipFaceButtons ? "A" : "B", -1, controller, context, false, null, null, null),
                     screenScale(BUTTON_BASE_X + BUTTON_SIZE, height) + rightDisplacement,
                     screenScale(BUTTON_BASE_Y + BUTTON_SIZE, height),
                     screenScale(BUTTON_SIZE, height),
@@ -230,7 +265,7 @@ public class VirtualControllerConfigurationLoader {
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_X,
                     !config.flipFaceButtons ? ControllerPacket.X_FLAG : ControllerPacket.Y_FLAG, 0, 1,
-                    !config.flipFaceButtons ? "X" : "Y", -1, controller, context),
+                    !config.flipFaceButtons ? "X" : "Y", -1, controller, context, false, null, null, null),
                     screenScale(BUTTON_BASE_X - BUTTON_SIZE, height) + rightDisplacement,
                     screenScale(BUTTON_BASE_Y + BUTTON_SIZE, height),
                     screenScale(BUTTON_SIZE, height),
@@ -240,7 +275,7 @@ public class VirtualControllerConfigurationLoader {
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_Y,
                     config.flipFaceButtons ? ControllerPacket.X_FLAG : ControllerPacket.Y_FLAG, 0, 1,
-                    config.flipFaceButtons ? "X" : "Y", -1, controller, context),
+                    config.flipFaceButtons ? "X" : "Y", -1, controller, context, false, null, null, null),
                     screenScale(BUTTON_BASE_X, height) + rightDisplacement,
                     screenScale(BUTTON_BASE_Y, height),
                     screenScale(BUTTON_SIZE, height),
@@ -265,7 +300,7 @@ public class VirtualControllerConfigurationLoader {
 
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_LB,
-                    ControllerPacket.LB_FLAG, 0, 1, "LB", -1, controller, context),
+                    ControllerPacket.LB_FLAG, 0, 1, "LB", -1, controller, context, false, null, null, null),
                     screenScale(TRIGGER_L_BASE_X + TRIGGER_DISTANCE, height),
                     screenScale(TRIGGER_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),
@@ -274,7 +309,7 @@ public class VirtualControllerConfigurationLoader {
 
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_RB,
-                    ControllerPacket.RB_FLAG, 0, 1, "RB", -1, controller, context),
+                    ControllerPacket.RB_FLAG, 0, 1, "RB", -1, controller, context, false, null, null, null),
                     screenScale(TRIGGER_R_BASE_X, height) + rightDisplacement,
                     screenScale(TRIGGER_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),
@@ -297,7 +332,7 @@ public class VirtualControllerConfigurationLoader {
 
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_BACK,
-                    ControllerPacket.BACK_FLAG, 0, 2, "BACK", -1, controller, context),
+                    ControllerPacket.BACK_FLAG, 0, 2, "BACK", -1, controller, context, false, null, null, null),
                     screenScale(BACK_X, height),
                     screenScale(START_BACK_Y, height),
                     screenScale(START_BACK_WIDTH, height),
@@ -306,7 +341,7 @@ public class VirtualControllerConfigurationLoader {
 
             controller.addElement(createDigitalButton(
                     VirtualControllerElement.EID_START,
-                    ControllerPacket.PLAY_FLAG, 0, 3, "START", -1, controller, context),
+                    ControllerPacket.PLAY_FLAG, 0, 3, "START", -1, controller, context, false, null, null, null),
                     screenScale(START_X, height) + rightDisplacement,
                     screenScale(START_BACK_Y, height),
                     screenScale(START_BACK_WIDTH, height),
@@ -315,19 +350,27 @@ public class VirtualControllerConfigurationLoader {
         }
         else {
             controller.addElement(createDigitalButton(
-                    VirtualControllerElement.EID_LSB,
-                    ControllerPacket.LS_CLK_FLAG, 0, 1, "L3", -1, controller, context),
-                    screenScale(TRIGGER_L_BASE_X, height),
-                    screenScale(L3_R3_BASE_Y, height),
+                            VirtualControllerElement.EID_SCROLL,
+                            ControllerPacket.LS_CLK_FLAG, 0, 1, "Scr Click", -1, controller, context,
+                            true,
+                            () -> conn.sendMouseButtonDown(MouseButtonPacket.BUTTON_MIDDLE),
+                            () -> {},
+                            () -> conn.sendMouseButtonUp(MouseButtonPacket.BUTTON_MIDDLE)),
+                    screenScale(TRIGGER_SCROLL_RIGHT_CLICK_BASE_X + TRIGGER_DISTANCE, height) + rightDisplacement,
+                    screenScale(SCROLL_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),
                     screenScale(TRIGGER_HEIGHT, height)
             );
 
             controller.addElement(createDigitalButton(
-                    VirtualControllerElement.EID_RSB,
-                    ControllerPacket.RS_CLK_FLAG, 0, 1, "R3", -1, controller, context),
-                    screenScale(TRIGGER_R_BASE_X + TRIGGER_DISTANCE, height) + rightDisplacement,
-                    screenScale(L3_R3_BASE_Y, height),
+                            VirtualControllerElement.EID_R_CLICK,
+                            ControllerPacket.RS_CLK_FLAG, 0, 1, "R Click", -1, controller, context,
+                            true,
+                            () -> conn.sendMouseButtonDown(MouseButtonPacket.BUTTON_RIGHT),
+                            () -> {},
+                            () -> conn.sendMouseButtonUp(MouseButtonPacket.BUTTON_RIGHT)),
+                    screenScale(TRIGGER_SCROLL_RIGHT_CLICK_BASE_X + TRIGGER_DISTANCE, height) + rightDisplacement,
+                    screenScale(RIGHT_CLICK_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),
                     screenScale(TRIGGER_HEIGHT, height)
             );

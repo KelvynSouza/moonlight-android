@@ -180,8 +180,8 @@
     <string name="title_checkbox_show_onscreen_controls">Mostrar controles na tela</string>
     <string name="summary_checkbox_show_onscreen_controls">Habilita o controle virtual na tela de toque</string>
     <string name="title_checkbox_vibrate_osc">Habilitar vibração</string>
-    <string name="title_only_l3r3">Mostrar somente L3 e R3</string>
-    <string name="summary_only_l3r3">Esconde todos os botões virtuais exceto o L3 e R3</string>
+    <string name="title_only_l3r3">Mostrar somente botões de mouse</string>
+    <string name="summary_only_l3r3">Esconde todos os botões virtuais exceto os de mouse</string>
     <string name="title_checkbox_touchscreen_trackpad">Usar a tela como um trackpad</string>
     <string name="title_checkbox_multi_controller">Detecção automática de gamepad</string>
     <string name="summary_checkbox_multi_controller">Desmarque esta opção para forçar o gamepad a estar sempre presente</string>
