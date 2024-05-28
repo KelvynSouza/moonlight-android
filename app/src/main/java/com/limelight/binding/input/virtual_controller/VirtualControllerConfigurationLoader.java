@@ -19,6 +19,8 @@ import com.limelight.preferences.PreferenceConfiguration;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class VirtualControllerConfigurationLoader {
     public static final String OSC_PREFERENCE = "OSC";
     private static int getPercent(
@@ -351,26 +353,56 @@ public class VirtualControllerConfigurationLoader {
             );
         }
         else {
+            boolean keepPressed = config.keepMouseButtonsPressed;
+
+            AtomicBoolean keepScrollpressed = new AtomicBoolean(false);
             controller.addElement(createDigitalButton(
                             VirtualControllerElement.EID_SCROLL,
                             ControllerPacket.LS_CLK_FLAG, 0, 1, "Scr Click", -1, controller, context,
                             true,
-                            () -> conn.sendMouseButtonDown(MouseButtonPacket.BUTTON_MIDDLE),
+                            () -> {
+                                conn.sendMouseButtonDown(MouseButtonPacket.BUTTON_MIDDLE);
+                                if(keepPressed) {
+                                    if (!keepScrollpressed.get()) {
+                                        keepScrollpressed.set(true);
+                                    } else {
+                                        keepScrollpressed.set(false);
+                                    }
+                                }
+                            },
                             () -> {},
-                            () -> conn.sendMouseButtonUp(MouseButtonPacket.BUTTON_MIDDLE)),
+                            () -> {
+                                if(!keepScrollpressed.get()){
+                                    conn.sendMouseButtonUp(MouseButtonPacket.BUTTON_MIDDLE);
+                                }
+                            }),
                     screenScale(TRIGGER_SCROLL_RIGHT_CLICK_BASE_X + TRIGGER_DISTANCE, height) + rightDisplacement,
                     screenScale(SCROLL_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),
                     screenScale(TRIGGER_HEIGHT, height)
             );
 
+            AtomicBoolean keepRightClickpressed = new AtomicBoolean(false);
             controller.addElement(createDigitalButton(
                             VirtualControllerElement.EID_R_CLICK,
                             ControllerPacket.RS_CLK_FLAG, 0, 1, "R Click", -1, controller, context,
                             true,
-                            () -> conn.sendMouseButtonDown(MouseButtonPacket.BUTTON_RIGHT),
+                            () -> {
+                                conn.sendMouseButtonDown(MouseButtonPacket.BUTTON_RIGHT);
+                                if(keepPressed) {
+                                    if (!keepRightClickpressed.get()) {
+                                        keepRightClickpressed.set(true);
+                                    } else {
+                                        keepRightClickpressed.set(false);
+                                    }
+                                }
+                            },
                             () -> {},
-                            () -> conn.sendMouseButtonUp(MouseButtonPacket.BUTTON_RIGHT)),
+                            () -> {
+                                if(!keepRightClickpressed.get()){
+                                    conn.sendMouseButtonUp(MouseButtonPacket.BUTTON_RIGHT);
+                                }
+                            }),
                     screenScale(TRIGGER_SCROLL_RIGHT_CLICK_BASE_X + TRIGGER_DISTANCE, height) + rightDisplacement,
                     screenScale(RIGHT_CLICK_BASE_Y, height),
                     screenScale(TRIGGER_WIDTH, height),

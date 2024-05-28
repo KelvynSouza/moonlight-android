@@ -145,9 +145,15 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:dependency="checkbox_show_onscreen_controls"
-            android:key="checkbox_only_show_L3R3"
-            android:summary="@string/summary_only_l3r3"
-            android:title="@string/title_only_l3r3" />
+            android:key="checkbox_only_mouse_button"
+            android:summary="@string/summary_only_mouse"
+            android:title="@string/title_only_mouse" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="checkbox_only_mouse_button"
+            android:key="checkbox_keep_mouse_button_pressed"
+            android:summary="@string/summary_only_mouse"
+            android:title="@string/summary_keep_mouse_button" />
         <CheckBoxPreference
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

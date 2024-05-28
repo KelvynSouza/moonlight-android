@@ -107,7 +107,7 @@
     <string name="summary_seekbar_bitrate">Tingkatkan untuk kualitas gambar yang lebih baik. Kurangi untuk meningkatkan kinerja pada koneksi yang lebih lambat.</string>
     <string name="title_checkbox_flip_face_buttons">Balikkan tombol wajah</string>
     <string name="summary_checkbox_flip_face_buttons">Mengalihkan tombol wajah A/B dan X/Y untuk gamepad dan kontrol di layar</string>
-    <string name="title_only_l3r3">Hanya tampilkan L3 dan R3</string>
+    <string name="title_only_mouse">Hanya tampilkan L3 dan R3</string>
     <string name="dialog_title_reset_osc">Atur Ulang Tata Letak</string>
     <string name="dialog_text_reset_osc">Yakin ingin menghapus tata letak kontrol di layar yang tersimpan\?</string>
     <string name="toast_reset_osc_success">Kontrol di layar diatur ulang ke default</string>
@@ -167,7 +167,7 @@
     <string name="summary_checkbox_show_onscreen_controls">Tampilkan hamparan pengontrol virtual di layar sentuh</string>
     <string name="title_checkbox_vibrate_osc">Aktifkan getaran</string>
     <string name="summary_checkbox_vibrate_osc">Getarkan perangkat Anda untuk meniru gemuruh untuk kontrol di layar</string>
-    <string name="summary_only_l3r3">Sembunyikan semua tombol virtual kecuali L3 dan R3</string>
+    <string name="summary_only_mouse">Sembunyikan semua tombol virtual kecuali L3 dan R3</string>
     <string name="summary_reset_osc">Menyetel ulang semua kontrol di layar ke ukuran dan posisi default</string>
     <string name="title_osc_opacity">Ubah opasitas kontrol di layar</string>
     <string name="summary_osc_opacity">Jadikan kontrol di layar lebih/kurang transparan</string>

@@ -96,8 +96,8 @@
     <string name="summary_checkbox_flip_face_buttons">Αλλάζει τα κουμπιά πρόσοψης A/B και X/Y για τα gamepad και τα χειριστήρια στην οθόνη</string>
     <string name="summary_checkbox_show_onscreen_controls">Εμφάνιση επικάλυψης εικονικού ελεγκτή στην οθόνη αφής</string>
     <string name="title_checkbox_vibrate_osc">Ενεργοποίηση δόνησης</string>
-    <string name="title_only_l3r3">Εμφάνιση μόνο των L3 και R3</string>
-    <string name="summary_only_l3r3">Απόκρυψη όλων των εικονικών κουμπιών εκτός των L3 και R3</string>
+    <string name="title_only_mouse">Εμφάνιση μόνο των L3 και R3</string>
+    <string name="summary_only_mouse">Απόκρυψη όλων των εικονικών κουμπιών εκτός των L3 και R3</string>
     <string name="dialog_title_reset_osc">Επαναφορά διάταξης</string>
     <string name="toast_reset_osc_success">Επαναφορά των στοιχείων ελέγχου στην οθόνη στις προεπιλογές</string>
     <string name="title_osc_opacity">Αλλαγή της αδιαφάνειας των στοιχείων ελέγχου στην οθόνη</string>

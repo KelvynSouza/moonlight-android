@@ -161,8 +161,8 @@
     <string name="summary_checkbox_show_onscreen_controls">Blendet einen virtuellen Controller als Overlay auf dem Touchscreen ein</string>
     <string name="title_checkbox_vibrate_osc">Vibrationen aktivieren</string>
     <string name="summary_checkbox_vibrate_osc">Vibrieren als haptisches Feedback für den On-Screen-Controller</string>
-    <string name="title_only_l3r3">Nur L3 und R3 einblenden</string>
-    <string name="summary_only_l3r3">Alle virtuellen Tasten außer L3 und R3 ausblenden</string>
+    <string name="title_only_mouse">Nur L3 und R3 einblenden</string>
+    <string name="summary_only_mouse">Alle virtuellen Tasten außer L3 und R3 ausblenden</string>
     <string name="title_reset_osc">Gespeichertes On-Screen-Controller Layout zurücksetzen</string>
     <string name="summary_reset_osc">Größe und Position der On-Screen-Controllertasten zurücksetzen</string>
     <string name="dialog_title_reset_osc">Layout zurücksetzen</string>

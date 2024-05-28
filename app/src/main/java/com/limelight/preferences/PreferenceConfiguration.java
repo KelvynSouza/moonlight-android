@@ -37,7 +37,8 @@ public class PreferenceConfiguration {
     private static final String USB_DRIVER_PREF_SRING = "checkbox_usb_driver";
     private static final String VIDEO_FORMAT_PREF_STRING = "video_format";
     private static final String ONSCREEN_CONTROLLER_PREF_STRING = "checkbox_show_onscreen_controls";
-    private static final String ONLY_L3_R3_PREF_STRING = "checkbox_only_show_L3R3";
+    private static final String ONLY_MOUSE_BUTTONS_PREF_STRING = "checkbox_only_mouse_button";
+    private static final String KEEP_MOUSE_BUTTONS_PRESSED_PREF_STRING = "checkbox_keep_mouse_button_pressed";
     private static final String SHOW_GUIDE_BUTTON_PREF_STRING = "checkbox_show_guide_button";
     private static final String LEGACY_DISABLE_FRAME_DROP_PREF_STRING = "checkbox_disable_frame_drop";
     private static final String ENABLE_HDR_PREF_STRING = "checkbox_enable_hdr";
@@ -76,6 +77,7 @@ public class PreferenceConfiguration {
 
     private static final boolean ONSCREEN_CONTROLLER_DEFAULT = false;
     private static final boolean ONLY_L3_R3_DEFAULT = false;
+    private static final boolean KEEP_MOUSE_BUTTONS_PRESSED_DEFAULT = false;
     private static final boolean SHOW_GUIDE_BUTTON_DEFAULT = true;
     private static final boolean DEFAULT_ENABLE_HDR = false;
     private static final boolean DEFAULT_ENABLE_PIP = false;
@@ -123,6 +125,7 @@ public class PreferenceConfiguration {
     public boolean onscreenController;
     public boolean showGuideButton;
     public boolean onlyMouseButtons;
+    public boolean keepMouseButtonsPressed;
     public boolean enableHdr;
     public boolean enablePip;
     public boolean enablePerfOverlay;
@@ -550,7 +553,8 @@ public class PreferenceConfiguration {
         config.multiController = prefs.getBoolean(MULTI_CONTROLLER_PREF_STRING, DEFAULT_MULTI_CONTROLLER);
         config.usbDriver = prefs.getBoolean(USB_DRIVER_PREF_SRING, DEFAULT_USB_DRIVER);
         config.onscreenController = prefs.getBoolean(ONSCREEN_CONTROLLER_PREF_STRING, ONSCREEN_CONTROLLER_DEFAULT);
-        config.onlyMouseButtons = prefs.getBoolean(ONLY_L3_R3_PREF_STRING, ONLY_L3_R3_DEFAULT);
+        config.onlyMouseButtons = prefs.getBoolean(ONLY_MOUSE_BUTTONS_PREF_STRING, ONLY_L3_R3_DEFAULT);
+        config.keepMouseButtonsPressed = prefs.getBoolean(KEEP_MOUSE_BUTTONS_PRESSED_PREF_STRING, KEEP_MOUSE_BUTTONS_PRESSED_DEFAULT);
         config.showGuideButton = prefs.getBoolean(SHOW_GUIDE_BUTTON_PREF_STRING, SHOW_GUIDE_BUTTON_DEFAULT);
         config.enableHdr = prefs.getBoolean(ENABLE_HDR_PREF_STRING, DEFAULT_ENABLE_HDR) && !isShieldAtvFirmwareWithBrokenHdr();
         config.enablePip = prefs.getBoolean(ENABLE_PIP_PREF_STRING, DEFAULT_ENABLE_PIP);

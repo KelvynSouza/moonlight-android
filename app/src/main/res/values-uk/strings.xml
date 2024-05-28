@@ -105,8 +105,8 @@
     <string name="category_on_screen_controls_settings">Налаштування екранних ґудзиків</string>
     <string name="title_checkbox_show_onscreen_controls">Показувати екранні ґудзики</string>
     <string name="summary_checkbox_show_onscreen_controls">Відображати віртуальні ґудзики контролера на екрані</string>
-    <string name="title_only_l3r3">Показувати тільки L3 та R3</string>
-    <string name="summary_only_l3r3">Приховувати всі віртуальні ґудзики окрім L3 та R3</string>
+    <string name="title_only_mouse">Показувати тільки L3 та R3</string>
+    <string name="summary_only_mouse">Приховувати всі віртуальні ґудзики окрім L3 та R3</string>
     <string name="scut_deleted_pc">Пристрій видалено</string>
     <string name="scut_not_paired">Пристрій не сполучений</string>
     <string name="help_loading_title">Перегляд допомоги</string>

@@ -95,7 +95,7 @@
     <string name="category_on_screen_controls_settings">Configurações de Controles de Ecrã</string>
     <string name="title_checkbox_show_onscreen_controls">Mostrar controles no ecrã</string>
     <string name="summary_checkbox_show_onscreen_controls">Ativa o controle virtual no ecrã de toque</string>
-    <string name="summary_only_l3r3">Esconde todos os botões virtuais exceto o L3 e R3</string>
+    <string name="summary_only_mouse">Esconde todos os botões virtuais exceto o L3 e R3</string>
     <string name="dialog_title_reset_osc">Resetar Layout</string>
     <string name="toast_reset_osc_success">Controles de ecrã redefinidos para o padrão</string>
     <string name="title_osc_opacity">Mudar a opacidade dos controles de ecrã</string>
@@ -196,7 +196,7 @@
     <string name="title_checkbox_vibrate_fallback">Emular suporte rumble com vibração</string>
     <string name="title_checkbox_vibrate_osc">Ativar vibração</string>
     <string name="summary_checkbox_vibrate_osc">Vibra o seu aparelho para emular rumble nos controles de ecrã</string>
-    <string name="title_only_l3r3">Mostrar somente L3 e R3</string>
+    <string name="title_only_mouse">Mostrar somente L3 e R3</string>
     <string name="title_reset_osc">Limpar o layout salvo dos controles de ecrã</string>
     <string name="summary_reset_osc">Redefine todos os controles no ecrã para tamanho e posição padrão dele</string>
     <string name="summary_osc_opacity">Deixe os controles de ecrã mais/menos transparentes</string>

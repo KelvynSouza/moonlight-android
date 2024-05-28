@@ -36,8 +36,8 @@
     <string name="dialog_title_reset_osc">Reset Layout</string>
     <string name="summary_reset_osc">Visszaállítja az összes képernyőn megjelenő vezérlőt az alapértelmezett méretre és helyzetre</string>
     <string name="title_reset_osc">A képernyőn lévő mentett vezérlők elrendezésének törlése</string>
-    <string name="summary_only_l3r3">Az összes virtuális gombot elrejti az L3 és R3 kivételével</string>
-    <string name="title_only_l3r3">Csak az L3-at és az R3-at mutatják</string>
+    <string name="summary_only_mouse">Az összes virtuális gombot elrejti az L3 és R3 kivételével</string>
+    <string name="title_only_mouse">Csak az L3-at és az R3-at mutatják</string>
     <string name="summary_checkbox_vibrate_osc">Rezeg a készülék, hogy utánozza a képernyőn megjelenő vezérlők zúgását</string>
     <string name="title_checkbox_vibrate_osc">Rezgés engedélyezése</string>
     <string name="summary_checkbox_show_onscreen_controls">A virtuális vezérlő fedvényének megjelenítése az érintőképernyőn</string>

@@ -157,8 +157,8 @@
     <string name="summary_checkbox_show_onscreen_controls">Afișează un controller virtual pe ecran</string>
     <string name="title_checkbox_vibrate_osc">Activează vibrațiile</string>
     <string name="summary_checkbox_vibrate_osc">Dispozitivul va vibra asemănător unui controller</string>
-    <string name="title_only_l3r3">Afișează doar L3 si R3</string>
-    <string name="summary_only_l3r3">Ascunde toate butoanele în afară de L3 and R3</string>
+    <string name="title_only_mouse">Afișează doar L3 si R3</string>
+    <string name="summary_only_mouse">Ascunde toate butoanele în afară de L3 and R3</string>
     <string name="title_reset_osc">Șterge schema salvată a controalelor</string>
     <string name="summary_reset_osc">Resetează toate controalele de pe ecran la poziția și dimensiunea implicită</string>
     <string name="dialog_title_reset_osc">Resetarea schemei de controale</string>

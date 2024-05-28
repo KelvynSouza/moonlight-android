@@ -33,8 +33,8 @@
     <string name="dialog_title_reset_osc">Đặt lại bố cục</string>
     <string name="summary_reset_osc">Đặt lại tất cả điều khiển trên màn hình về kích thước và vị trí mặc định</string>
     <string name="title_reset_osc">Xoá bộ cục điều khiển trên màn hình đã lưu</string>
-    <string name="summary_only_l3r3">Ẩn tất cả nút ảo trừ L3 và R3</string>
-    <string name="title_only_l3r3">Chỉ hiện L3 và R3</string>
+    <string name="summary_only_mouse">Ẩn tất cả nút ảo trừ L3 và R3</string>
+    <string name="title_only_mouse">Chỉ hiện L3 và R3</string>
     <string name="summary_checkbox_vibrate_osc">Làm thiết bị rung để giả lập rumble đối với điều khiển trên màn hình</string>
     <string name="title_checkbox_vibrate_osc">Bật rung</string>
     <string name="summary_checkbox_show_onscreen_controls">Hiện bộ điều khiển ảo trên màn hình cảm ứng</string>

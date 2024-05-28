@@ -114,8 +114,8 @@
     <string name="category_on_screen_controls_settings">Impostazioni dei controlli a schermo</string>
     <string name="title_checkbox_show_onscreen_controls">Mostra controlli a schermo</string>
     <string name="summary_checkbox_show_onscreen_controls">Mostra l\'overlay virtuale del controller su schermo</string>
-    <string name="title_only_l3r3">Mostra solo L3 e R3</string>
-    <string name="summary_only_l3r3">Nasconde tutti i pulsanti virtuali tranne L3 e R3</string>
+    <string name="title_only_mouse">Mostra solo L3 e R3</string>
+    <string name="summary_only_mouse">Nasconde tutti i pulsanti virtuali tranne L3 e R3</string>
     <string name="title_reset_osc">Ripristina il layout personalizzato dei controlli a schermo</string>
     <string name="summary_reset_osc">Ripristina tutti i controlli a schermo nelle loro posizioni e dimensioni predefinite</string>
     <string name="dialog_title_reset_osc">Ripristino del layout</string>

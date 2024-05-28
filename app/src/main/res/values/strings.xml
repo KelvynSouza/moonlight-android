@@ -203,8 +203,10 @@
     <string name="summary_checkbox_show_onscreen_controls">Show virtual controller overlay on touchscreen</string>
     <string name="title_checkbox_vibrate_osc">Enable vibration</string>
     <string name="summary_checkbox_vibrate_osc">Vibrates your device to emulate rumble for the on-screen controls</string>
-    <string name="title_only_l3r3">Only show mouse buttons</string>
-    <string name="summary_only_l3r3">Hide all virtual buttons except mouse buttons</string>
+    <string name="title_only_mouse">Only show mouse buttons</string>
+    <string name="summary_only_mouse">Hide all virtual buttons except mouse buttons</string>
+    <string name="title_keep_mouse_button">Click to keep mouse button pressed</string>
+    <string name="summary_keep_mouse_button">Keep mouse button pressed after one tap</string>
     <string name="title_show_guide_button">Show Guide Button</string>
     <string name="summary_show_guide_button">Show the guide button on screen</string>
     <string name="title_reset_osc">Clear saved on-screen controls layout</string>

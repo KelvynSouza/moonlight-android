@@ -117,8 +117,8 @@
     <string name="category_on_screen_controls_settings">Настройки Экранных Кнопок</string>
     <string name="title_checkbox_show_onscreen_controls">Показывать экранные кнопки</string>
     <string name="summary_checkbox_show_onscreen_controls">Отображать оверлей виртуального контроллера на сенсорном экране</string>
-    <string name="title_only_l3r3">Показывать только L3 и R3</string>
-    <string name="summary_only_l3r3">Скрывать все экранные кнопки кроме L3 и R3</string>
+    <string name="title_only_mouse">Показывать только L3 и R3</string>
+    <string name="summary_only_mouse">Скрывать все экранные кнопки кроме L3 и R3</string>
     <string name="summary_osc_opacity">Сделать экранные кнопки более/менее прозрачными</string>
     <string name="dialog_title_osc_opacity">Изменить прозрачность</string>
     <string name="scut_deleted_pc">PC удален</string>

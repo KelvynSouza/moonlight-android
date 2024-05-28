@@ -135,8 +135,8 @@
     <string name="category_on_screen_controls_settings">Inställningar för kontroller på skärmen</string>
     <string name="title_checkbox_vibrate_osc">Sätt på darrning</string>
     <string name="summary_checkbox_vibrate_osc">Darrar din enhet för att ge svar på skärmkontrollerna</string>
-    <string name="title_only_l3r3">Visa bara L3 och R3</string>
-    <string name="summary_only_l3r3">Dölj alla synliga knappar utom L3 och R3</string>
+    <string name="title_only_mouse">Visa bara L3 och R3</string>
+    <string name="summary_only_mouse">Dölj alla synliga knappar utom L3 och R3</string>
     <string name="title_reset_osc">Rensa sparad formgivning för kontroller på skärmen</string>
     <string name="dialog_title_reset_osc">Återställ formgivning</string>
     <string name="dialog_text_reset_osc">Är du säker på att du vill ta bort din sparade layout för skärmenheterna\?</string>

@@ -61,8 +61,8 @@
     <string name="suffix_osc_opacity">%</string>
     <string name="dialog_title_osc_opacity">Endre dekkevne</string>
     <string name="dialog_title_reset_osc">Tilbakestill oppsett</string>
-    <string name="summary_only_l3r3">Skjul alle virtuelle knapper unntatt L3 og R3</string>
-    <string name="title_only_l3r3">Kun vis L3 og R3</string>
+    <string name="summary_only_mouse">Skjul alle virtuelle knapper unntatt L3 og R3</string>
+    <string name="title_only_mouse">Kun vis L3 og R3</string>
     <string name="title_checkbox_vibrate_osc">Skru på vibrering</string>
     <string name="title_checkbox_mouse_emulation">Museemulering via spillkontroller</string>
     <string name="suffix_seekbar_deadzone">%</string>

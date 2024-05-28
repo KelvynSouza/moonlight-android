@@ -164,7 +164,7 @@
     <string name="summary_checkbox_flip_face_buttons">Schakelt de face-knoppen A/B en X/Y om voor gamepads en voor on-screen besturing</string>
     <string name="title_checkbox_vibrate_osc">Trillen inschakelen</string>
     <string name="summary_checkbox_vibrate_osc">Trilt uw apparaat om gerommel te simuleren voor de on-screen besturing</string>
-    <string name="summary_only_l3r3">Alle virtuele knoppen verbergen behalve L3 en R3</string>
+    <string name="summary_only_mouse">Alle virtuele knoppen verbergen behalve L3 en R3</string>
     <string name="title_reset_osc">Opgeslagen on-screen layout wissen</string>
     <string name="dialog_title_reset_osc">Reset Layout</string>
     <string name="toast_reset_osc_success">On-screen controle-elementen naar fabrieksinstellingen zetten</string>
@@ -205,7 +205,7 @@
     <string name="title_checkbox_vibrate_fallback">Simuleer rumble-ondersteuning met trillingen</string>
     <string name="summary_checkbox_mouse_nav_buttons">Deze optie inschakelen kan problemen veroorzaken met rechts-klikken op sommige buggy apparaten</string>
     <string name="summary_checkbox_vibrate_fallback">Laat uw apparaat trillen om gerommel te simuleren als uw gamepad dit niet ondersteund</string>
-    <string name="title_only_l3r3">Enkel L3 en R3 tonen</string>
+    <string name="title_only_mouse">Enkel L3 en R3 tonen</string>
     <string name="title_checkbox_usb_bind_all">Standaard Xbox gamepad-ondersteuning overschrijven</string>
     <string name="summary_reset_osc">Herstelt alle on-screen besturingselementen naar hun originele grootte en positie</string>
     <string name="dialog_title_osc_opacity">Transparantie wijzigen</string>
